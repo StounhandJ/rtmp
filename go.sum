@@ -1,3 +1,5 @@
+github.com/StounhandJ/go-amf v0.0.0-20230215080322-e5a467a5c999 h1:vakS3zSeGPlEKxwHV59YDxu8bOkzCNqRrc8klvyNvFw=
+github.com/StounhandJ/go-amf v0.0.0-20230215080322-e5a467a5c999/go.mod h1:/Yn2YIGhnnHL9VYOvmJZCxSfiDrcSb4rRIQ4or+YJU4=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -17,6 +19,8 @@ github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZN
 github.com/sirupsen/logrus v1.7.0/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
 github.com/sirupsen/logrus v1.9.0 h1:trlNQbNUG3OdDrDil03MCb1H2o9nJ1x4/5LYw7byDE0=
 github.com/sirupsen/logrus v1.9.0/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVsIT4qYEQ=
+github.com/speps/go-amf v0.0.0-20170202210820-61e26a409388 h1:wnOL33Ry6HWjieyh3NGmuY0ND30/2mEeuW1zpbs3qXs=
+github.com/speps/go-amf v0.0.0-20170202210820-61e26a409388/go.mod h1:vvOjEnagaaLQZ7AIVYF043+OwEqpq1jcgFUqKLhNHG8=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
 github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpEOglKo=

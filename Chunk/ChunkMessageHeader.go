@@ -105,7 +105,7 @@ func (mh *MessageHeader) EncodeChunkMessageHeader(writer io.Writer) error {
 	case 0:
 		copy(mes[3:6], utils.Uint32ToByteArray(mh.MessageLength, 3))
 		mes[6] = mh.MessageTypeID
-		copy(mes[7:10], utils.Uint32ToByteArray(mh.MessageStreamID, 3))
+		copy(mes[7:11], utils.Uint32ToByteArray(mh.MessageStreamID, 4))
 		if mh.Timestamp > 0xffffff {
 			copy(mes[0:3], utils.Uint32ToByteArray(0xffffff, 3))
 			copy(mes[10:14], utils.Uint32ToByteArray(mh.Timestamp, 4))
@@ -115,13 +115,13 @@ func (mh *MessageHeader) EncodeChunkMessageHeader(writer io.Writer) error {
 			}
 		} else {
 			copy(mes[0:3], utils.Uint32ToByteArray(mh.Timestamp, 3))
-			_, err := writer.Write(mes[:10])
+			_, err := writer.Write(mes[:11])
 			if err != nil {
 				return err
 			}
 		}
 	case 1:
-		copy(mes[3:6], utils.Uint32ToByteArray(99999999, 3))
+		copy(mes[3:6], utils.Uint32ToByteArray(mh.MessageLength, 3))
 		mes[6] = mh.MessageTypeID
 		if mh.TimestampDelta > 0xffffff {
 			copy(mes[0:3], utils.Uint32ToByteArray(0xffffff, 3))
@@ -132,7 +132,7 @@ func (mh *MessageHeader) EncodeChunkMessageHeader(writer io.Writer) error {
 			}
 		} else {
 			copy(mes[0:3], utils.Uint32ToByteArray(mh.TimestampDelta, 3))
-			_, err := writer.Write(mes[:6])
+			_, err := writer.Write(mes[:7])
 			if err != nil {
 				return err
 			}

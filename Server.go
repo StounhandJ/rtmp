@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"errors"
 	"fmt"
@@ -43,7 +44,7 @@ func (s *Server) Run() error {
 }
 
 func (s *Server) createConnector(conn net.Conn) error {
-	err := s.handshakeWithClient(conn)
+	err := s.handshakeWithClient(bufio.NewWriter(conn), bufio.NewReader(conn))
 	if err != nil {
 		return err
 	}
@@ -56,9 +57,9 @@ func (s *Server) createConnector(conn net.Conn) error {
 	return nil
 }
 
-func (s *Server) handshakeWithClient(conn net.Conn) error {
+func (s *Server) handshakeWithClient(w *bufio.Writer, r *bufio.Reader) error {
 	// Recv C0
-	c0, err := Handshake.DecodeS0C0(conn)
+	c0, err := Handshake.DecodeS0C0(r)
 	if err != nil {
 		return err
 	}
@@ -67,32 +68,46 @@ func (s *Server) handshakeWithClient(conn net.Conn) error {
 		return errors.New("version non supported")
 	}
 
+	// Send S0
 	s0 := Handshake.NewS0C0(byte(RTMPVersion))
 
-	if err := s0.EncodeS0C0(conn); err != nil {
+	if err := s0.EncodeS0C0(w); err != nil {
+		return err
+	}
+	err = w.Flush()
+	if err != nil {
 		return err
 	}
 
 	// Send S1
 	s1 := Handshake.NewS1C1()
 
-	if err := s1.EncodeS1C1(conn); err != nil {
+	if err := s1.EncodeS1C1(w); err != nil {
+		return err
+	}
+	err = w.Flush()
+	if err != nil {
 		return err
 	}
 
 	// Recv C1
-	c1, err := Handshake.DecodeS1C1(conn)
+	c1, err := Handshake.DecodeS1C1(r)
 	if err != nil {
 		return err
 	}
 
 	// Send S2
 	s2 := Handshake.NewS2C2(c1.Time, c1.Random)
-	if err := s2.EncodeS2C2(conn); err != nil {
+	if err := s2.EncodeS2C2(w); err != nil {
+		return err
+	}
+	err = w.Flush()
+	if err != nil {
 		return err
 	}
 
-	c2, err := Handshake.DecodeS2C2(conn)
+	// Recv C2
+	c2, err := Handshake.DecodeS2C2(r)
 	if err != nil {
 		return err
 	}
@@ -102,5 +117,9 @@ func (s *Server) handshakeWithClient(conn net.Conn) error {
 		return errors.New("random echo is not matched")
 	}
 
+	//err = w.Flush()
+	//if err != nil {
+	//	return err
+	//}
 	return nil
 }

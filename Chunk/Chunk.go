@@ -78,9 +78,9 @@ func (c *Chunk) Execute(write chan<- *Chunk) {
 
 			write <- chWAL
 
-			chSPB := createSetPeerBandwidth(size[:], 1, c.ChunkBasicHeader.ChunkStreamID)
-
-			write <- chSPB
+			//chSPB := createSetPeerBandwidth(size[:], 1, c.ChunkBasicHeader.ChunkStreamID)
+			//
+			//write <- chSPB
 
 			//bs := make([]byte, 4)
 			//binary.LittleEndian.PutUint32(bs, 4048)

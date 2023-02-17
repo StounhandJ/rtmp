@@ -52,7 +52,7 @@ func decodeChunkMessageHeader(r io.Reader, fmt byte) (*MessageHeader, error) {
 			if err != nil {
 				return nil, err
 			}
-			mh.Timestamp = binary.BigEndian.Uint32(cache32bits)
+			mh.Timestamp = binary.LittleEndian.Uint32(cache32bits)
 		}
 
 	case 1:
@@ -70,7 +70,7 @@ func decodeChunkMessageHeader(r io.Reader, fmt byte) (*MessageHeader, error) {
 			if err != nil {
 				return nil, err
 			}
-			mh.TimestampDelta = binary.BigEndian.Uint32(cache32bits)
+			mh.TimestampDelta = binary.LittleEndian.Uint32(cache32bits)
 		}
 
 	case 2:
@@ -86,7 +86,7 @@ func decodeChunkMessageHeader(r io.Reader, fmt byte) (*MessageHeader, error) {
 			if err != nil {
 				return nil, err
 			}
-			mh.TimestampDelta = binary.BigEndian.Uint32(cache32bits)
+			mh.TimestampDelta = binary.LittleEndian.Uint32(cache32bits)
 		}
 
 	case 3:
